@@ -44,62 +44,51 @@ tobyreminder/
 
 ---
 
-## Phase 1 — 리마인더 기본 CRUD (Backend)
+## Phase 1 — 리스트 + 리마인더 CRUD (Backend)
 
-> 가장 단순한 형태. 리마인더 1개 엔티티만으로 생성/조회/수정/삭제/완료 동작 확인.
+> ReminderList와 Reminder를 함께 구현. 리마인더는 반드시 리스트에 소속.
 
 ### Backend 작업
 
 1. `application.properties` 설정
    - H2 인메모리 DB, H2 Console, JPA ddl-auto, JSON 날짜 포맷
-2. `Reminder` Entity 생성
-   - 필드: id, title, notes, dueDate, priority(Enum), flagged, completed, completedAt, displayOrder, createdAt, updatedAt
+2. `ReminderList` Entity 생성
+   - 필드: id, name, color, icon, displayOrder, createdAt, updatedAt
    - `@PrePersist`, `@PreUpdate`로 타임스탬프 자동 처리
-3. `ReminderRepository` (JpaRepository)
-4. `ReminderService` — CRUD + 완료 토글 로직
-5. `ReminderController` — REST endpoints
-   - `GET /api/reminders` — 전체 조회
+3. `Reminder` Entity 생성
+   - 필드: id, title, notes, dueDate, priority(Enum), flagged, completed, completedAt, displayOrder, createdAt, updatedAt
+   - `@ManyToOne` ReminderList 관계 (`list` 필드)
+   - `@PrePersist`, `@PreUpdate`로 타임스탬프 자동 처리
+4. `ReminderListRepository`, `ReminderRepository` (JpaRepository)
+5. DTO 분리
+   - `ReminderListRequest`, `ReminderListResponse`
+   - `ReminderRequest`, `ReminderResponse`
+6. `ReminderListService` — CRUD + 미완료 카운트
+7. `ReminderListController` — REST endpoints
+   - `GET /api/lists` — 전체 조회 (각 리스트의 미완료 카운트 포함)
+   - `POST /api/lists` — 생성
+   - `PUT /api/lists/{id}` — 수정
+   - `DELETE /api/lists/{id}` — 삭제
+8. `ReminderService` — CRUD + 완료 토글 + 필터 조회
+9. `ReminderController` — REST endpoints
+   - `GET /api/reminders` — 조회 (필터: `?listId=`, `?today=`, `?flagged=`, `?completed=`, `?scheduled=`)
    - `GET /api/reminders/{id}` — 상세 조회
    - `POST /api/reminders` — 생성
    - `PUT /api/reminders/{id}` — 수정
    - `PATCH /api/reminders/{id}/complete` — 완료 토글
    - `DELETE /api/reminders/{id}` — 삭제
-6. DTO 분리: `ReminderRequest`, `ReminderResponse`
-7. `data.sql`로 샘플 데이터 삽입
+10. 스마트 리스트 카운트 API
+    - `GET /api/reminders/counts` — today, scheduled, all, flagged, completed 각 카운트
+11. `data.sql`로 리스트 + 리마인더 샘플 데이터 삽입
 
 ### 완료 기준
 - H2 Console에서 데이터 확인 가능
-- curl 또는 HTTP client로 모든 CRUD 동작 확인
+- 리스트 CRUD, 리마인더 CRUD 모든 API 동작 확인
+- 리스트별 필터링, 스마트 리스트 카운트 응답 확인
 
 ---
 
-## Phase 2 — 리스트 관리 + 리마인더 연관 (Backend)
-
-> 리스트 엔티티 추가. 리마인더가 리스트에 소속되도록 확장.
-
-### Backend 작업
-
-1. `ReminderList` Entity 생성
-   - 필드: id, name, color, icon, displayOrder, createdAt, updatedAt
-2. `Reminder`에 `@ManyToOne` 관계 추가 (`list` 필드)
-3. `ReminderListRepository`, `ReminderListService`, `ReminderListController`
-   - `GET /api/lists` — 전체 조회 (각 리스트의 미완료 카운트 포함)
-   - `POST /api/lists` — 생성
-   - `PUT /api/lists/{id}` — 수정
-   - `DELETE /api/lists/{id}` — 삭제
-4. `GET /api/reminders`에 필터 파라미터 추가
-   - `?listId=`, `?today=true`, `?flagged=true`, `?completed=true`, `?scheduled=true`
-5. 스마트 리스트 카운트 API
-   - `GET /api/reminders/counts` — today, scheduled, all, flagged, completed 각 카운트
-6. 샘플 데이터에 리스트 추가
-
-### 완료 기준
-- 리스트별 리마인더 필터링 동작
-- 스마트 리스트 카운트 응답 확인
-
----
-
-## Phase 3 — Frontend 기본 UI (Next.js)
+## Phase 2 — Frontend 기본 UI (Next.js)
 
 > Next.js 프로젝트 생성. Apple Reminders 스타일 레이아웃과 리마인더 목록 표시.
 
@@ -128,7 +117,7 @@ tobyreminder/
 
 ---
 
-## Phase 4 — 리마인더 상세 편집 + 리스트 CRUD (Frontend)
+## Phase 3 — 리마인더 상세 편집 + 리스트 CRUD (Frontend)
 
 > 리마인더 상세 패널과 리스트 관리 UI 추가.
 
@@ -151,7 +140,7 @@ tobyreminder/
 
 ---
 
-## Phase 5 — 서브태스크 (Full Stack)
+## Phase 4 — 서브태스크 (Full Stack)
 
 > 리마인더 하위에 서브태스크 기능 추가.
 
@@ -178,7 +167,7 @@ tobyreminder/
 
 ---
 
-## Phase 6 — 검색 + 인터랙션 + 반응형
+## Phase 5 — 검색 + 인터랙션 + 반응형
 
 > 검색 기능, 애니메이션, 반응형 디자인으로 완성도 향상.
 
