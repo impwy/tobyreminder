@@ -2,21 +2,21 @@
 
 ## Phase 1 — 리스트 + 리마인더 CRUD (Backend)
 
-- [ ] 1-1. `application.properties` 설정 (H2 인메모리, H2 Console, JPA ddl-auto, JSON 날짜 포맷)
-- [ ] 1-2. `Priority` Enum 생성 (NONE, LOW, MEDIUM, HIGH)
-- [ ] 1-3. `ReminderList` Entity 생성 (id, name, color, icon, displayOrder, createdAt, updatedAt)
-- [ ] 1-4. `Reminder` Entity 생성 (id, title, notes, dueDate, priority, flagged, completed, completedAt, displayOrder, `@ManyToOne` list, createdAt, updatedAt)
-- [ ] 1-5. `ReminderListRepository` 생성 (JpaRepository)
-- [ ] 1-6. `ReminderRepository` 생성 (JpaRepository + 필터 쿼리: listId, today, flagged, completed, scheduled)
-- [ ] 1-7. `ReminderListRequest` / `ReminderListResponse` DTO 생성
-- [ ] 1-8. `ReminderRequest` / `ReminderResponse` DTO 생성
-- [ ] 1-9. `ReminderListService` 생성 (CRUD + 미완료 카운트)
-- [ ] 1-10. `ReminderListController` 생성 (GET, POST, PUT, DELETE)
-- [ ] 1-11. `ReminderService` 생성 (CRUD + 완료 토글 + 필터 조회)
-- [ ] 1-12. `ReminderController` 생성 (GET with 필터, GET/{id}, POST, PUT, PATCH/complete, DELETE)
-- [ ] 1-13. 스마트 리스트 카운트 API (`GET /api/reminders/counts`)
-- [ ] 1-14. `data.sql` 샘플 데이터 작성 (리스트 + 리마인더)
-- [ ] 1-15. 전체 API 동작 테스트 확인
+- [x] 1-1. `application.properties` 설정 (H2 인메모리, H2 Console, JPA ddl-auto, JSON 날짜 포맷)
+- [x] 1-2. `Priority` Enum 생성 (NONE, LOW, MEDIUM, HIGH)
+- [x] 1-3. `ReminderList` Entity 생성 (id, name, color, icon, displayOrder, createdAt, updatedAt)
+- [x] 1-4. `Reminder` Entity 생성 (id, title, notes, dueDate, priority, flagged, completed, completedAt, displayOrder, `@ManyToOne` list, createdAt, updatedAt)
+- [x] 1-5. `ReminderListRepository` 생성 (JpaRepository)
+- [x] 1-6. `ReminderRepository` 생성 (JpaRepository + 필터 쿼리: listId, today, flagged, completed, scheduled)
+- [x] 1-7. `ReminderListRequest` / `ReminderListResponse` DTO 생성
+- [x] 1-8. `ReminderRequest` / `ReminderResponse` DTO 생성
+- [x] 1-9. `ReminderListService` 생성 (CRUD + 미완료 카운트)
+- [x] 1-10. `ReminderListController` 생성 (GET, POST, PUT, DELETE)
+- [x] 1-11. `ReminderService` 생성 (CRUD + 완료 토글 + 필터 조회)
+- [x] 1-12. `ReminderController` 생성 (GET with 필터, GET/{id}, POST, PUT, PATCH/complete, DELETE)
+- [x] 1-13. 스마트 리스트 카운트 API (`GET /api/reminders/counts`)
+- [x] 1-14. `data.sql` 샘플 데이터 작성 (리스트 + 리마인더)
+- [x] 1-15. 전체 API 동작 테스트 확인
 
 ## Phase 2 — Frontend 기본 UI (Next.js)
 
