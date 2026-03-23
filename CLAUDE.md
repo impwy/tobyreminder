@@ -7,6 +7,23 @@
 - `@NoArgsConstructor(access = AccessLevel.PROTECTED)` — JPA 전용, 외부 직접 생성 차단
 - `@Builder`는 클래스가 아닌 생성자에 적용 — 생성에 필요한 필드만 포함 (id, timestamps 제외)
 
+### 도메인 엔티티
+
+- 패키지: `domain` (`entity` 아님)
+
+### 서비스 계층
+
+- 인터페이스는 `service/ports/in` 패키지에 정의
+- 구현 클래스는 `service` 패키지에 위치, `Default` 접두사 사용 (예: `DefaultReminderListService`)
+
+### 테스트
+
+- 기능 추가/수정 시 반드시 테스트를 함께 작성
+- 도메인 엔티티 테스트: 순수 단위 테스트 (JPA, Spring Context 의존 금지)
+- 서비스 테스트: `@SpringBootTest` + `@Transactional` 사용 (Mock 금지, 실제 DB 통합 테스트)
+- JUnit 5 + AssertJ
+- `@DisplayName`으로 테스트 의도를 한글로 명시
+
 ### 문서 (.md)
 
 - `spec.md` — 제품 스펙 (기능, API, 데이터 모델, UI/UX)
