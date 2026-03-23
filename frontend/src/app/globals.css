@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-apple-blue: #007AFF;
+  --color-apple-red: #FF3B30;
+  --color-apple-orange: #FF9500;
+  --color-apple-yellow: #FFCC00;
+  --color-apple-green: #34C759;
+  --color-apple-purple: #AF52DE;
+  --color-apple-pink: #FF2D55;
+  --color-apple-gray: #8E8E93;
+  --color-apple-brown: #A2845E;
+  --color-apple-bg: #F2F2F7;
+  --color-apple-separator: #E5E5EA;
+  --color-apple-card: #FFFFFF;
+  --color-apple-search-bg: #E5E5EA;
+  --color-apple-text: #1C1C1E;
+  --color-apple-text-secondary: #8E8E93;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro", "Helvetica Neue",
+    sans-serif;
+  background: var(--color-apple-bg);
+  color: var(--color-apple-text);
+  margin: 0;
+}
+
+/* Checkbox animation */
+@keyframes checkmark-fill {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.checkbox-animate {
+  animation: checkmark-fill 0.3s ease-out;
+}
+
+/* Detail panel slide */
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.detail-slide-in {
+  animation: slide-in 0.25s ease-out;
+}
+
+/* Skeleton pulse */
+@keyframes skeleton-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.skeleton {
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+  background: var(--color-apple-separator);
+  border-radius: 4px;
+}
