@@ -13,3 +13,11 @@ INSERT INTO reminder (title, notes, due_date, priority, flagged, completed, comp
 ('Team meeting prep', null, CURRENT_TIMESTAMP, 'MEDIUM', false, false, null, 2, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 ('Call dentist', 'Schedule cleaning', DATEADD(DAY, 3, CURRENT_TIMESTAMP), 'NONE', false, false, null, 1, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 ('Read book', 'Chapter 5-7', null, 'LOW', false, true, CURRENT_TIMESTAMP, 2, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- Subtask
+INSERT INTO subtask (title, completed, display_order, reminder_id, created_at, updated_at) VALUES
+('Whole milk', false, 1, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Butter', false, 2, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Gather data', true, 1, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Write summary', false, 2, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Review with team', false, 3, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);

@@ -5,11 +5,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import toby.ai.tobyreminder.domain.Reminder;
 import toby.ai.tobyreminder.domain.ReminderList;
+import toby.ai.tobyreminder.domain.Subtask;
 import toby.ai.tobyreminder.dto.ReminderRequest;
 import toby.ai.tobyreminder.dto.ReminderResponse;
 import toby.ai.tobyreminder.dto.SmartListCountResponse;
 import toby.ai.tobyreminder.repository.ReminderListRepository;
 import toby.ai.tobyreminder.repository.ReminderRepository;
+import toby.ai.tobyreminder.repository.SubtaskRepository;
 import toby.ai.tobyreminder.service.ports.in.ReminderService;
 
 import java.time.LocalDate;
@@ -24,6 +26,7 @@ public class DefaultReminderService implements ReminderService {
 
     private final ReminderRepository reminderRepository;
     private final ReminderListRepository reminderListRepository;
+    private final SubtaskRepository subtaskRepository;
 
     @Override
     public List<ReminderResponse> findByListId(Long listId) {
@@ -78,7 +81,9 @@ public class DefaultReminderService implements ReminderService {
 
     @Override
     public ReminderResponse findById(Long id) {
-        return ReminderResponse.from(getReminderOrThrow(id));
+        Reminder reminder = getReminderOrThrow(id);
+        List<Subtask> subtasks = subtaskRepository.findByReminderIdOrderByDisplayOrderAsc(id);
+        return ReminderResponse.from(reminder, subtasks);
     }
 
     @Override
