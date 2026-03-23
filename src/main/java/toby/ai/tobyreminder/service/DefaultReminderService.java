@@ -96,7 +96,7 @@ public class DefaultReminderService implements ReminderService {
                 .notes(request.getNotes())
                 .dueDate(request.getDueDate())
                 .priority(request.getPriority())
-                .flagged(request.isFlagged())
+                .flagged(Boolean.TRUE.equals(request.getFlagged()))
                 .displayOrder(request.getDisplayOrder())
                 .list(list)
                 .build();
@@ -115,7 +115,7 @@ public class DefaultReminderService implements ReminderService {
                 request.getNotes(),
                 request.getDueDate(),
                 request.getPriority(),
-                request.isFlagged(),
+                Boolean.TRUE.equals(request.getFlagged()),
                 request.getDisplayOrder(),
                 list
         );

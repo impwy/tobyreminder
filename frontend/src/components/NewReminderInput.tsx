@@ -17,18 +17,33 @@ export default function NewReminderInput({
   const [editing, setEditing] = useState(false);
   const [title, setTitle] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
+  const submittingRef = useRef(false);
   const { refreshAll } = useApp();
 
   const handleSubmit = async () => {
+    if (submittingRef.current) return;
     const trimmed = title.trim();
     if (!trimmed) {
       setEditing(false);
       return;
     }
-    await reminderApi.create({ title: trimmed, listId });
-    setTitle("");
-    await refreshAll();
-    inputRef.current?.focus();
+    submittingRef.current = true;
+    try {
+      await reminderApi.create({
+        title: trimmed,
+        listId,
+        priority: "NONE",
+        flagged: false,
+      });
+      setTitle("");
+      await refreshAll();
+      inputRef.current?.focus();
+    } catch {
+      setEditing(false);
+      setTitle("");
+    } finally {
+      submittingRef.current = false;
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {

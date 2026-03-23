@@ -24,3 +24,10 @@ spring:
       hibernate:
         format_sql: true
     defer-datasource-initialization: true
+
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-stacktrace: on-param
+    include-exception: true

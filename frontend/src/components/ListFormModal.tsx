@@ -24,7 +24,7 @@ interface ListFormModalProps {
 }
 
 export default function ListFormModal({ editList, onClose }: ListFormModalProps) {
-  const { refreshAll } = useApp();
+  const { refreshAll, lists } = useApp();
   const [name, setName] = useState("");
   const [color, setColor] = useState(COLORS[4]);
   const [icon, setIcon] = useState(ICONS[0]);
@@ -43,7 +43,8 @@ export default function ListFormModal({ editList, onClose }: ListFormModalProps)
     if (editList) {
       await listApi.update(editList.id, { name: trimmed, color, icon });
     } else {
-      await listApi.create({ name: trimmed, color, icon });
+      const maxOrder = lists.reduce((max, l) => Math.max(max, l.displayOrder ?? 0), 0);
+      await listApi.create({ name: trimmed, color, icon, displayOrder: maxOrder + 1 });
     }
     await refreshAll();
     onClose();
