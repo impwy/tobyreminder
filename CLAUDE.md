@@ -34,4 +34,6 @@
 ### Spring Boot 4 참고
 
 - `@DataJpaTest` 패키지: `org.springframework.boot.data.jpa.test.autoconfigure`
+- `@AutoConfigureMockMvc` 패키지: `org.springframework.boot.webmvc.test.autoconfigure`
+- `ObjectMapper` 패키지: `tools.jackson.databind` (`com.fasterxml.jackson` 아님)
 - 테스트 의존성: `spring-boot-starter-data-jpa-test`, `spring-boot-starter-webmvc-test`
